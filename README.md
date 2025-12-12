@@ -20,8 +20,8 @@ Ensure your system meets the following requirements:
 ### 2. Getting the Code
 
 1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/loganhagen/koa-sleep-api.git
+    ```
+    git clone https://github.com/Koa-Sleep/koa-sleep-api.git
     cd koa-sleep-api
     ```
 
@@ -72,8 +72,6 @@ Follow the provided steps in the root of the backend directory.
     ```
 
 ## Versioning
-
-### Front-End
 
 1. Check-out a new branch (Ex. `chore/bump-version`).
 2. Run `npm version patch --no-git-tag-version -m "chore: bump version to %s"`
