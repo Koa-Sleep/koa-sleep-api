@@ -32,3 +32,4 @@ Thumbs.db
 
 # flat-cache
 .cache
+src/config/koa-sleep-api.code-workspace
