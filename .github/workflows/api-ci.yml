@@ -1,0 +1,55 @@
+name: API CI
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+    paths:
+      - '.github/workflows/api-ci.yml'
+  pull_request:
+    branches:
+      - main
+      - dev
+    paths:
+      - '.github/workflows/api-ci.yml'
+
+jobs:
+  ci-backend:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: . 
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js v20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './package-lock.json' 
+
+      - name: Install Dependencies
+        run: npm ci 
+
+      - name: Run Linter
+        run: npm run lint
+
+      - name: Run Tests
+        env:
+          # These are dummy values to satisfy config.ts validation during tests
+          EXPRESS_PORT: '5000'
+          DATABASE_URL: 'postgresql://test:test@localhost:5432/test'
+          CORS_ALLOWED_ORIGINS: 'http://localhost:3000'
+          JWT_SECRET: 'test-secret-for-ci'
+          BACKEND_URL: 'http://localhost:5000'
+          FRONTEND_URL: 'http://localhost:3000'
+          FITBIT_CLIENT_ID: 'test_client_id'
+          FITBIT_CLIENT_SECRET: 'test_client_secret'
+          FITBIT_REDIRECT_URI: 'http://localhost:5000/api/callback'
+          ENCRYPTION_KEY: '0000000000000000000000000000000000000000000000000000000000000000'
+        run: npm run test
